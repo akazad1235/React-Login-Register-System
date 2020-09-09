@@ -52,6 +52,26 @@ function App() {
       return err;
     })
   }
+  //loign input section 
+  const handlBlur = (event)=> {
+  // const isValidated = (event.target.name, event.target.value);
+
+    let isvalidForm = true;
+    if (event.target.name == 'email') {
+        isvalidForm = /\S+@\S+\.\S+/.test(event.target.value);
+       // console.log(isvalidForm); 
+    }
+    if (event.target.name == 'password') {
+        const isValidPassword = event.target.value.length>6;
+        const passwordHasNumber = /\d{1}/.test(event.target.value);
+        isvalidForm = (isValidPassword && passwordHasNumber);
+    }
+    console.log(isvalidForm);
+
+  }
+  const handlerSubmit = (event)=>{
+    console.log( 'login clicked', event);
+  }
   
   return (
     <div className='App'>
@@ -66,9 +86,11 @@ function App() {
         <img style={{width:'50%'}} src={users.photo}/>
       </div>
       }
-      <form action="">
-        <input type="email" name="email" placeholder=""/>
-        <input type="password" name="password" id=""/>
+      <h3>Owner Login</h3>
+      <form onSubmit={handlerSubmit}>
+        <input type="email" name="email" onBlur={handlBlur} placeholder="Please Enter Your Email" required/><br/>
+        <input type="password" name="password" onBlur={handlBlur} placeholder="Please Enter Your Password" required/><br/>
+        <input type="submit" value="Submit"/>
       </form>
     </div>
   );
